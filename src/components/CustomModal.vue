@@ -116,6 +116,7 @@
               :class="mail.validator(mail.field.value) !== '' && mail.touched.value ? 'modal-window-email-input-error' : ''"
               :placeholder="modalConfig.mailInput"
               v-model="mail.field.value"
+              @input="mailInput(mail.field.value)"
               @blur="mail.touched.value = true"
           >
 
@@ -138,7 +139,7 @@
 
 <script setup>
 import {useMail} from "@/use/mail";
-import {computed, watchEffect, defineProps, defineEmits} from "vue";
+import {computed, watch, defineProps, defineEmits} from "vue";
 
 // eslint-disable-next-line
 const props = defineProps({
@@ -165,20 +166,22 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['hide', 'valid'])
+const emit = defineEmits(['hide', 'valid', 'inputMailField'])
 
 const mail = useMail()
 
 const valid = computed(() => mail.validator(mail.field.value) === '')
 
-watchEffect(() => {
-  if (valid.value) {
-    mailValid(valid.value)
-  }
+watch(valid, value => {
+  mailValid(value)
 })
 
-const mailValid = (value) => {
+const mailValid = value => {
   emit('valid', value)
+}
+
+const mailInput = field => {
+  emit('inputMailField', field)
 }
 
 const modalHide = () => {

@@ -54,6 +54,7 @@
       :modal-config="modal3Config"
       @hide="modal3.hide()"
       @valid="handleValid"
+      @inputMailField="inputMailField"
   >
     <template v-slot:contentText>Введите email, на который мы пришлем вам электронный чек</template>
 
@@ -124,9 +125,14 @@ const modal2 = useModal()
 const modal3 = useModal()
 
 const valid = ref(false)
+const mailField = ref('')
 
-const handleValid = (value) => {
+const handleValid = value => {
   valid.value = value
+}
+
+const inputMailField = field => {
+  mailField.value = field
 }
 
 </script>
