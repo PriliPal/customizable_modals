@@ -58,12 +58,7 @@
     <template v-slot:contentText>Введите email, на который мы пришлем вам электронный чек</template>
 
     <template v-slot:buttons>
-      <button v-if="valid" class="modal-button modal-button-green" @click="modal3.hide()">
-        Далее
-        <span class="modal-button-text">Далее</span>
-      </button>
-
-      <button v-else class="modal-button modal-button-inactive">
+      <button class="modal-button " :class="valid ? 'modal-button-green' : 'modal-button-inactive'" @click="valid ? modal3.hide() : ''">
         Далее
         <span class="modal-button-text">Далее</span>
       </button>
